@@ -1,0 +1,35 @@
+﻿@model List<TravelLibrary.Models.ViewModels.ListEditorialViewModels>
+
+@{
+    ViewBag.Title = "Editorial";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+<div class="row" style="text-align:right;padding:5px;">
+    <a href="~/Editorial/New" class="btn btn-info">Nuevo</a>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <table class="table">
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Ubicación</th>
+            </tr>
+            @foreach (var element in Model)
+            {
+                <tr>
+                    <td>@element.IdEditorial</td>
+                    <td>@element.EditorialName</td>
+                    <td>@element.EditorialLocation</td>
+                    <td>
+                        <a class="btn btn-default" href="~/Editorial/Edit/@element.IdEditorial">Editar</a>
+                        <a class="btn btn-danger" href="~/Editorial/Delete/@element.IdEditorial">Eliminar</a>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

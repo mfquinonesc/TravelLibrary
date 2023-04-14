@@ -1,0 +1,22 @@
+﻿@model TravelLibrary.Models.ViewModels.EditorialViewModel
+@{
+    ViewBag.Title = "Nuevo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+@using (Html.BeginForm("New", "Editorial", FormMethod.Post))
+{
+    <div class="row">
+        <div class="col-md-12">
+            @Html.LabelFor(d => d.EditorialName)
+            @Html.TextBoxFor(d => d.EditorialName, "", new { @class = "form-control" })
+            @Html.LabelFor(d => d.EditorialLocation)
+            @Html.TextBoxFor(d => d.EditorialLocation, "", new { @class = "form-control" })
+            <div style="text-align:right">
+                <input value="Guardar" class="btn btn-primary" type="submit" />
+            </div>
+        </div>
+    </div>
+}
+

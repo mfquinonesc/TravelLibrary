@@ -1,0 +1,22 @@
+﻿@model TravelLibrary.Models.ViewModels.AuthorViewModel
+@{
+    ViewBag.Title = "Editar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+@using (Html.BeginForm("Edit", "Author", FormMethod.Post))
+{
+    <div class="row">
+        <div class="col-md-12">
+            @Html.HiddenFor(d => d.IdAuthor)
+            @Html.LabelFor(d => d.Name)
+            @Html.TextBoxFor(d => d.Name, "", new { @class = "form-control" })
+            @Html.LabelFor(d => d.Surname)
+            @Html.TextBoxFor(d => d.Surname, "", new { @class = "form-control" })
+            <div style="text-align:right">
+                <input value="Guardar" class="btn btn-primary" type="submit" />
+            </div>
+        </div>
+    </div>
+}

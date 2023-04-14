@@ -1,0 +1,35 @@
+﻿@model List<TravelLibrary.Models.ViewModels.ListAuthorViewModels>
+
+@{
+    ViewBag.Title = "Autor";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+<div class="row" style="text-align:right;padding:5px;">
+    <a href="~/Author/New" class="btn btn-info">Nuevo</a>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <table class="table">
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+            </tr>
+            @foreach (var element in Model)
+            {
+                <tr>
+                    <td>@element.IdAuthor</td>
+                    <td>@element.Name</td>
+                    <td>@element.Surname</td>
+                    <td>
+                        <a class="btn btn-default" href="~/Author/Edit/@element.IdAuthor">Editar</a>
+                        <a class="btn btn-danger" href="~/Author/Delete/@element.IdAuthor">Eliminar</a>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
