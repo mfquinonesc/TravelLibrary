@@ -1,13 +1,13 @@
 ﻿@model TravelLibrary.Models.ViewModels.BookViewModel
 @{
-    ViewBag.Title = "Nuevo";
+    ViewBag.Title = "Editar";
     List<SelectListItem> itemsAuthor = (List<SelectListItem>)ViewBag.ItemsAuthor;
     List<SelectListItem> itemsEditorial = (List<SelectListItem>)ViewBag.ItemsEditorial;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>@ViewBag.Title</h2>
-@using (Html.BeginForm("New", "Book", FormMethod.Post))
+@using (Html.BeginForm("Edit", "Book", FormMethod.Post))
 {
     <div class="row">
         <div class="col-md-12">
@@ -19,8 +19,8 @@
             @Html.DropDownList("AuthorList", itemsAuthor, "Seleccione", new { @class = "form-control" })
 
             @Html.LabelFor(d => d.IdEditorial)
-            @Html.DropDownList("EditorialList",itemsEditorial, "Seleccione", new { @class = "form-control" })
-           
+            @Html.DropDownList("EditorialList", itemsEditorial, "Seleccione", new { @class = "form-control" })
+
             @Html.LabelFor(d => d.Title)
             @Html.TextBoxFor(d => d.Title, "", new { @class = "form-control" })
             @Html.LabelFor(d => d.Synopsis)

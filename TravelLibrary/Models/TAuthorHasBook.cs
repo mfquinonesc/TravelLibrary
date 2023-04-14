@@ -16,7 +16,5 @@ namespace TravelLibrary.Models
     {
         public int idAuthor { get; set; }
         public int iSBN { get; set; }
-    
-        public virtual TBook TBook { get; set; }
     }
 }

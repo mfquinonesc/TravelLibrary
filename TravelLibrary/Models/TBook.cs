@@ -14,20 +14,12 @@ namespace TravelLibrary.Models
     
     public partial class TBook
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public TBook()
-        {
-            this.TAuthorHasBook = new HashSet<TAuthorHasBook>();
-        }
-    
         public int iSBN { get; set; }
         public int idEditorial { get; set; }
         public string title { get; set; }
         public string synopsis { get; set; }
         public string pages { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TAuthorHasBook> TAuthorHasBook { get; set; }
         public virtual TEditorial TEditorial { get; set; }
     }
 }
