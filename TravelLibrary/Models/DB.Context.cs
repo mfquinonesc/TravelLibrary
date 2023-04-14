@@ -27,6 +27,7 @@ namespace TravelLibrary.Models
     
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<TAuthor> TAuthor { get; set; }
+        public virtual DbSet<TAuthorHasBook> TAuthorHasBook { get; set; }
         public virtual DbSet<TBook> TBook { get; set; }
         public virtual DbSet<TEditorial> TEditorial { get; set; }
         public virtual DbSet<VBookInfo> VBookInfo { get; set; }

@@ -1,0 +1,37 @@
+﻿@model TravelLibrary.Models.ViewModels.BookViewModel
+@{
+    ViewBag.Title = "Nuevo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+@using (Html.BeginForm("New", "Book", FormMethod.Post))
+{
+    <div class="row">
+        <div class="col-md-12">
+
+            @Html.LabelFor(d => d.ISBN)
+            @Html.TextBoxFor(d => d.ISBN, "", new { @class = "form-control" })
+
+            @Html.LabelFor(d => d.IdAuthor)
+            @{
+                TravelLibrary.Models.ViewModels.BookViewModel model = new TravelLibrary.Models.ViewModels.BookViewModel();
+                List<SelectListItem> AuthorList = model.AuthorList;
+            }
+            <br />
+            @Html.DropDownList("IdAuthorw", model.AuthorList, "Seleccione autor")
+            <br />           
+            @Html.LabelFor(d => d.IdEditorial)
+            @Html.TextBoxFor(d => d.IdEditorial, "", new { @class = "form-control" })
+            @Html.LabelFor(d => d.Title)
+            @Html.TextBoxFor(d => d.Title, "", new { @class = "form-control" })
+            @Html.LabelFor(d => d.Synopsis)
+            @Html.TextBoxFor(d => d.Synopsis, "", new { @class = "form-control" })
+            @Html.LabelFor(d => d.Pages)
+            @Html.TextBoxFor(d => d.Pages, "", new { @class = "form-control" })
+            <div style="text-align:right">
+                <input value="Guardar" class="btn btn-primary" type="submit" />
+            </div>
+        </div>
+    </div>
+}

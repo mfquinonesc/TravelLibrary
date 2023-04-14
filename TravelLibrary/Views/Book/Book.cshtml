@@ -1,0 +1,44 @@
+﻿@model List<TravelLibrary.Models.ViewModels.ListBookViewModels>
+
+@{
+    ViewBag.Title = "Libros";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+<div class="row" style="text-align:right;padding:5px;">
+    <a href="~/Book/New" class="btn btn-info">Nuevo</a>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <table class="table">
+            <tr>
+                <th>ISBN</th>
+                <th>Título</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Editorial</th> 
+                <th>Sinopsis</th>
+                <th>Páginas</th>
+            </tr>
+            @foreach (var element in Model)
+            {
+                <tr>
+                    <td>@element.ISBN</td>
+                    <td>@element.Title</td>
+                    <td>@element.Name</td>
+                    <td>@element.Surname</td>
+                    <td>@element.EditorialName</td>
+                    <td>@element.Synopsis</td>
+                    <td>@element.Pages</td>
+                    <td>
+                        <a class="btn btn-default" href="~/Book/Edit/@element.ISBN">Editar</a>
+                        <a class="btn btn-danger" href="~/Book/Delete/@element.ISBN">Eliminar</a>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+

@@ -17,7 +17,7 @@ namespace TravelLibrary.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public TBook()
         {
-            this.TAuthor = new HashSet<TAuthor>();
+            this.TAuthorHasBook = new HashSet<TAuthorHasBook>();
         }
     
         public int iSBN { get; set; }
@@ -26,8 +26,8 @@ namespace TravelLibrary.Models
         public string synopsis { get; set; }
         public string pages { get; set; }
     
-        public virtual TEditorial TEditorial { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TAuthor> TAuthor { get; set; }
+        public virtual ICollection<TAuthorHasBook> TAuthorHasBook { get; set; }
+        public virtual TEditorial TEditorial { get; set; }
     }
 }

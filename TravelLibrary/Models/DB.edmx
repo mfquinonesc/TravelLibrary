@@ -73,30 +73,6 @@ warning 6002: The table/view 'LIBRARY.dbo.VBookInfo' does not have a primary key
           <Property Name="editorialName" Type="varchar" MaxLength="45" Nullable="false" />
           <Property Name="editorialLocation" Type="varchar" MaxLength="45" Nullable="false" />
         </EntityType>
-        <Association Name="FK_T_Author_has_Book_T_Author">
-          <End Role="TAuthor" Type="Self.TAuthor" Multiplicity="1" />
-          <End Role="TAuthorHasBook" Type="Self.TAuthorHasBook" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TAuthor">
-              <PropertyRef Name="idAuthor" />
-            </Principal>
-            <Dependent Role="TAuthorHasBook">
-              <PropertyRef Name="idAuthor" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_T_Author_has_Book_T_Book">
-          <End Role="TBook" Type="Self.TBook" Multiplicity="1" />
-          <End Role="TAuthorHasBook" Type="Self.TAuthorHasBook" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TBook">
-              <PropertyRef Name="iSBN" />
-            </Principal>
-            <Dependent Role="TAuthorHasBook">
-              <PropertyRef Name="iSBN" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_T_Book_T_Editorial">
           <End Role="TEditorial" Type="Self.TEditorial" Multiplicity="1" />
           <End Role="TBook" Type="Self.TBook" Multiplicity="*" />
@@ -106,6 +82,18 @@ warning 6002: The table/view 'LIBRARY.dbo.VBookInfo' does not have a primary key
             </Principal>
             <Dependent Role="TBook">
               <PropertyRef Name="idEditorial" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TAuthorHasBook_TBook">
+          <End Role="TBook" Type="Self.TBook" Multiplicity="1" />
+          <End Role="TAuthorHasBook" Type="Self.TAuthorHasBook" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBook">
+              <PropertyRef Name="iSBN" />
+            </Principal>
+            <Dependent Role="TAuthorHasBook">
+              <PropertyRef Name="iSBN" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -129,17 +117,13 @@ warning 6002: The table/view 'LIBRARY.dbo.VBookInfo' does not have a primary key
     [VBookInfo].[editorialLocation] AS [editorialLocation]
     FROM [dbo].[VBookInfo] AS [VBookInfo]</DefiningQuery>
           </EntitySet>
-          <AssociationSet Name="FK_T_Author_has_Book_T_Author" Association="Self.FK_T_Author_has_Book_T_Author">
-            <End Role="TAuthor" EntitySet="TAuthor" />
-            <End Role="TAuthorHasBook" EntitySet="TAuthorHasBook" />
-          </AssociationSet>
-          <AssociationSet Name="FK_T_Author_has_Book_T_Book" Association="Self.FK_T_Author_has_Book_T_Book">
-            <End Role="TBook" EntitySet="TBook" />
-            <End Role="TAuthorHasBook" EntitySet="TAuthorHasBook" />
-          </AssociationSet>
           <AssociationSet Name="FK_T_Book_T_Editorial" Association="Self.FK_T_Book_T_Editorial">
             <End Role="TEditorial" EntitySet="TEditorial" />
             <End Role="TBook" EntitySet="TBook" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TAuthorHasBook_TBook" Association="Self.FK_TAuthorHasBook_TBook">
+            <End Role="TBook" EntitySet="TBook" />
+            <End Role="TAuthorHasBook" EntitySet="TAuthorHasBook" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -164,7 +148,15 @@ warning 6002: The table/view 'LIBRARY.dbo.VBookInfo' does not have a primary key
           <Property Name="idAuthor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="surname" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="TBook" Relationship="Self.TAuthorHasBook" FromRole="TAuthor" ToRole="TBook" />
+        </EntityType>
+        <EntityType Name="TAuthorHasBook">
+          <Key>
+            <PropertyRef Name="idAuthor" />
+            <PropertyRef Name="iSBN" />
+          </Key>
+          <Property Name="idAuthor" Type="Int32" Nullable="false" />
+          <Property Name="iSBN" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TBook" Relationship="Self.FK_TAuthorHasBook_TBook" FromRole="TAuthorHasBook" ToRole="TBook" />
         </EntityType>
         <EntityType Name="TBook">
           <Key>
@@ -175,8 +167,8 @@ warning 6002: The table/view 'LIBRARY.dbo.VBookInfo' does not have a primary key
           <Property Name="title" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="synopsis" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="pages" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TAuthorHasBook" Relationship="Self.FK_TAuthorHasBook_TBook" FromRole="TBook" ToRole="TAuthorHasBook" />
           <NavigationProperty Name="TEditorial" Relationship="Self.FK_T_Book_T_Editorial" FromRole="TBook" ToRole="TEditorial" />
-          <NavigationProperty Name="TAuthor" Relationship="Self.TAuthorHasBook" FromRole="TBook" ToRole="TAuthor" />
         </EntityType>
         <EntityType Name="TEditorial">
           <Key>
@@ -209,6 +201,18 @@ warning 6002: The table/view 'LIBRARY.dbo.VBookInfo' does not have a primary key
           <Property Name="editorialName" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="editorialLocation" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
+        <Association Name="FK_TAuthorHasBook_TBook">
+          <End Role="TBook" Type="Self.TBook" Multiplicity="1" />
+          <End Role="TAuthorHasBook" Type="Self.TAuthorHasBook" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBook">
+              <PropertyRef Name="iSBN" />
+            </Principal>
+            <Dependent Role="TAuthorHasBook">
+              <PropertyRef Name="iSBN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_T_Book_T_Editorial">
           <End Role="TEditorial" Type="Self.TEditorial" Multiplicity="1" />
           <End Role="TBook" Type="Self.TBook" Multiplicity="*" />
@@ -221,22 +225,19 @@ warning 6002: The table/view 'LIBRARY.dbo.VBookInfo' does not have a primary key
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="TAuthorHasBook">
-          <End Role="TAuthor" Type="Self.TAuthor" Multiplicity="*" />
-          <End Role="TBook" Type="Self.TBook" Multiplicity="*" />
-        </Association>
         <EntityContainer Name="LIBRARYEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="TAuthor" EntityType="Self.TAuthor" />
+          <EntitySet Name="TAuthorHasBook" EntityType="Self.TAuthorHasBook" />
           <EntitySet Name="TBook" EntityType="Self.TBook" />
           <EntitySet Name="TEditorial" EntityType="Self.TEditorial" />
           <EntitySet Name="VBookInfo" EntityType="Self.VBookInfo" />
+          <AssociationSet Name="FK_TAuthorHasBook_TBook" Association="Self.FK_TAuthorHasBook_TBook">
+            <End Role="TBook" EntitySet="TBook" />
+            <End Role="TAuthorHasBook" EntitySet="TAuthorHasBook" />
+          </AssociationSet>
           <AssociationSet Name="FK_T_Book_T_Editorial" Association="Self.FK_T_Book_T_Editorial">
             <End Role="TEditorial" EntitySet="TEditorial" />
-            <End Role="TBook" EntitySet="TBook" />
-          </AssociationSet>
-          <AssociationSet Name="TAuthorHasBook" Association="Self.TAuthorHasBook">
-            <End Role="TAuthor" EntitySet="TAuthor" />
             <End Role="TBook" EntitySet="TBook" />
           </AssociationSet>
         </EntityContainer>
@@ -263,6 +264,14 @@ warning 6002: The table/view 'LIBRARY.dbo.VBookInfo' does not have a primary key
                 <ScalarProperty Name="idAuthor" ColumnName="idAuthor" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="surname" ColumnName="surname" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TAuthorHasBook">
+            <EntityTypeMapping TypeName="LIBRARYModel.TAuthorHasBook">
+              <MappingFragment StoreEntitySet="TAuthorHasBook">
+                <ScalarProperty Name="idAuthor" ColumnName="idAuthor" />
+                <ScalarProperty Name="iSBN" ColumnName="iSBN" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -302,14 +311,6 @@ warning 6002: The table/view 'LIBRARY.dbo.VBookInfo' does not have a primary key
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="TAuthorHasBook" TypeName="LIBRARYModel.TAuthorHasBook" StoreEntitySet="TAuthorHasBook">
-            <EndProperty Name="TAuthor">
-              <ScalarProperty Name="idAuthor" ColumnName="idAuthor" />
-            </EndProperty>
-            <EndProperty Name="TBook">
-              <ScalarProperty Name="iSBN" ColumnName="iSBN" />
-            </EndProperty>
-          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

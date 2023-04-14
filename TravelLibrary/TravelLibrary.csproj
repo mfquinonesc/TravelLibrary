@@ -129,6 +129,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AuthorController.cs" />
+    <Compile Include="Controllers\BookController.cs" />
     <Compile Include="Controllers\EditorialController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -155,6 +156,9 @@
     <Compile Include="Models\TAuthor.cs">
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\TAuthorHasBook.cs">
+      <DependentUpon>DB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\TBook.cs">
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
@@ -164,9 +168,12 @@
     <Compile Include="Models\VBookInfo.cs">
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ViewModels\AuthorBookViewModel.cs" />
     <Compile Include="Models\ViewModels\AuthorViewModel.cs" />
+    <Compile Include="Models\ViewModels\BookViewModel.cs" />
     <Compile Include="Models\ViewModels\EditorialViewModel.cs" />
     <Compile Include="Models\ViewModels\ListAuthorViewModels.cs" />
+    <Compile Include="Models\ViewModels\ListBookViewModels.cs" />
     <Compile Include="Models\ViewModels\ListEditorialViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -181,8 +188,8 @@
     <Content Include="Content\Site.css" />
     <Content Include="Models\DB.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>DB.Context.cs</LastGenOutput>
       <DependentUpon>DB.edmx</DependentUpon>
+      <LastGenOutput>DB.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Models\DB.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -229,6 +236,8 @@
     <Content Include="Views\Editorial\Editorial.cshtml" />
     <Content Include="Views\Editorial\Edit.cshtml" />
     <Content Include="Views\Editorial\New.cshtml" />
+    <Content Include="Views\Book\Book.cshtml" />
+    <Content Include="Views\Book\New.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
